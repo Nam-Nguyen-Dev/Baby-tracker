@@ -4,23 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Tracker</title>
+    <title>Weight Tracker</title>
 </head>
 <body>
-    <h1>Baby Weight Tracker</h1>
+    <h1>Exercise Tracker</h1>
     <form action="/addWeight" method="Post">
+        <!--
         <input type="text" name="name" placeholder="Name">
+        -->
         <input type="number" name="pounds" placeholder="lbs">
-        <input type="number" name="ounces" placeholder="oz">
+        <input type="number" name="reps" placeholder="reps">
+        <input type="number" name="sets" placeholder="sets">
         <input type="submit" value="Submit">
     </form>
     <section>
         <ul class="weights">
+            
             <% for(let i=info.length-1; i >= 0; i--) {%>
                 <li class="weight">
-                    <span><%= info[i].pounds %>lbs</span>
-                    <span><%= info[i].ounces %>oz </span>
-                    <span><%= info[i].date %></span>
+                    <span><%= info[i].pounds %></span><span>lbs</span>
+                    <span><%= info[i].reps %></span><span> reps x </span>
+                    <span><%= info[i].sets %></span><span> sets</span>
+                    
                     <span class="del">delete</span>
                 </li>
             <% } %>

@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 
 app.post('/addWeight', (req, res) => {
     let dateTime = new Date()
-    db.collection('weights').insertOne({pounds: req.body.pounds, ounces: req.body.ounces, date: dateTime.toLocaleDateString('en-us')})
+    db.collection('weights').insertOne({pounds: req.body.pounds, reps: req.body.reps, sets: req.body.sets, date: dateTime.toLocaleDateString('en-us'), completed: true})
         .then(result => {
             console.log('Weight added')
             res.redirect('/')
@@ -39,12 +39,18 @@ app.post('/addWeight', (req, res) => {
 })
 
 app.delete('/deleteWeight', (req, res) => {
-    db.collection('weights').deleteOne({pounds: req.body.pounds, ounces: req.body.ounces})
+    const query = {
+        'pounds': req.body.poundsFromJS,
+        'reps': req.body.repsFromJS,
+        'sets': req.body.setsFromJS
+    }
+    console.log(query)
+    db.collection('weights').deleteOne(query)
     .then(result => {
         console.log('Weight deleted')
         res.json('Weight Deleted')
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error(err)) 
 })
 
 
