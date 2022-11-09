@@ -75,6 +75,28 @@ app.put('/markComplete', (req, res) => {
     .catch(err => console.error(err)) 
 })
 
+app.put('/markUncomplete', (req, res) => {
+    const query = {
+        'pounds': req.body.poundsFromJS,
+        'reps': req.body.repsFromJS,
+        'sets': req.body.setsFromJS
+    }
+    console.log(query)
+    db.collection('weights').updateOne(query, {
+        $set: {
+            completed: false
+        }
+    },{
+        sort: {_id: -1},
+        upsert: false
+    })
+    .then(result => {
+        console.log('Marked Complete')
+        res.json('Marked Complete')
+    })
+    .catch(err => console.error(err)) 
+})
+
 app.listen(process.env.PORT || PORT, (req, res) => {
     console.log(`Server is running on port ${PORT}. You better go catch it!`)
 })

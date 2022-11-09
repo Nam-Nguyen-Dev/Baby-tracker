@@ -2,5 +2,6 @@
     color: red
 }
 .completed{
-    color: green
+    color: green;
+    text-decoration: line-through;
 }
