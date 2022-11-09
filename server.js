@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 
 app.post('/addWeight', (req, res) => {
     let dateTime = new Date()
-    db.collection('weights').insertOne({pounds: req.body.pounds, reps: req.body.reps, sets: req.body.sets, date: dateTime.toLocaleDateString('en-us'), completed: true})
+    db.collection('weights').insertOne({pounds: req.body.pounds, reps: req.body.reps, sets: req.body.sets, date: dateTime.toLocaleDateString('en-us'), completed: false})
         .then(result => {
             console.log('Weight added')
             res.redirect('/')
@@ -53,6 +53,27 @@ app.delete('/deleteWeight', (req, res) => {
     .catch(err => console.error(err)) 
 })
 
+app.put('/markComplete', (req, res) => {
+    const query = {
+        'pounds': req.body.poundsFromJS,
+        'reps': req.body.repsFromJS,
+        'sets': req.body.setsFromJS
+    }
+    console.log(query)
+    db.collection('weights').updateOne(query, {
+        $set: {
+            completed: true
+        }
+    },{
+        sort: {_id: -1},
+        upsert: false
+    })
+    .then(result => {
+        console.log('Marked Complete')
+        res.json('Marked Complete')
+    })
+    .catch(err => console.error(err)) 
+})
 
 app.listen(process.env.PORT || PORT, (req, res) => {
     console.log(`Server is running on port ${PORT}. You better go catch it!`)

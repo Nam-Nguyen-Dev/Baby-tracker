@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weight Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <h1>Exercise Tracker</h1>
@@ -22,10 +23,15 @@
             
             <% for(let i=info.length-1; i >= 0; i--) {%>
                 <li class="weight">
-                    <span><%= info[i].pounds %></span><span>lbs</span>
-                    <span><%= info[i].reps %></span><span> reps x </span>
-                    <span><%= info[i].sets %></span><span> sets</span>
-                    
+                    <% if(info[i].completed === true) {%>    
+                        <span class="completed"><%= info[i].pounds %></span><span class="completed">lbs</span>
+                        <span class="completed"><%= info[i].reps %></span><span class="completed"> reps x </span>
+                        <span class="completed"><%= info[i].sets %></span><span class="completed"> sets</span>
+                    <% }else{ %>
+                        <span><%= info[i].pounds %></span><span>lbs</span>
+                        <span><%= info[i].reps %></span><span> reps x </span>
+                        <span><%= info[i].sets %></span><span> sets</span>
+                    <% } %>
                     <span class="del">delete</span>
                 </li>
             <% } %>
