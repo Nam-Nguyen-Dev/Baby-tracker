@@ -29,12 +29,22 @@ app.get('/', (req, res) => {
 })
 
 app.post('/addWeight', (req, res) => {
-    db.collection('weights').insertOne(req.body)
+    let dateTime = new Date()
+    db.collection('weights').insertOne({pounds: req.body.pounds, ounces: req.body.ounces, date: dateTime.toLocaleDateString('en-us')})
         .then(result => {
             console.log('Weight added')
             res.redirect('/')
         })
         .catch(err => console.error(err))
+})
+
+app.delete('/deleteWeight', (req, res) => {
+    db.collection('weights').deleteOne({pounds: req.body.pounds, ounces: req.body.ounces})
+    .then(result => {
+        console.log('Weight deleted')
+        res.json('Weight Deleted')
+    })
+    .catch(err => console.error(err))
 })
 
 
