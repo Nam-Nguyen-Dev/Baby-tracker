@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Tracker</title>
+</head>
+<body>
+    <h1>Baby Tracker</h1>
+    <form action="/addWeight" method="Post">
+        <input type="text" name="name" placeholder="Name">
+        <input type="number" name="pounds" placeholder="lbs">
+        <input type="number" name="ounces" placeholder="oz">
+        <input type="submit" value="Submit">
+    </form>
+    <section>
+        <ul class="weights">
+            <% for(let i=0; i < info.length; i++) {%>
+                <li class="weight">
+                    <span> <%= info[i].pounds %>lbs <%= info[i].ounces %>oz </span>
+
+                    <span class="del">delete</span>
+                </li>
+            <% } %>
+        </ul>
+    </section>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
